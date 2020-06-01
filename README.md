@@ -10,9 +10,9 @@ go get -u github.com/misoboy/go-aws-generate-db-token
 
 ## Examples
 
-| [Demo](examples)|
+| [Screenshot](examples) |
 | --- |
-| ![Screenshot](examples/screenshot.png)|
+| <img src="examples/screenshot.png" width="400">|
 
 ## Overview
 
