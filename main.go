@@ -20,52 +20,52 @@ import (
 )
 
 var (
-	logPath = "./log"
-	logFileName = "application.log"
-	myLogger *log.Logger
-	dev_eu_profile *string
-	dev_eu_rdsHostname *string
-	dev_eu_rdsPort *int
-	dev_eu_rdsUsername *string
+	logPath                  = "./log"
+	logFileName              = "application.log"
+	myLogger                 *log.Logger
+	dev_eu_profile           *string
+	dev_eu_rdsHostname       *string
+	dev_eu_rdsPort           *int
+	dev_eu_rdsUsername       *string
 	dev_eu_redshiftClusterId *string
-	dev_eu_redshiftUsername *string
+	dev_eu_redshiftUsername  *string
 
-	dev_cn_profile *string
-	dev_cn_rdsHostname *string
-	dev_cn_rdsPort *int
-	dev_cn_rdsUsername *string
+	dev_cn_profile           *string
+	dev_cn_rdsHostname       *string
+	dev_cn_rdsPort           *int
+	dev_cn_rdsUsername       *string
 	dev_cn_redshiftClusterId *string
-	dev_cn_redshiftUsername *string
+	dev_cn_redshiftUsername  *string
 
-	stg_eu_profile *string
-	stg_eu_rdsHostname *string
-	stg_eu_rdsPort *int
-	stg_eu_rdsUsername *string
+	stg_eu_profile           *string
+	stg_eu_rdsHostname       *string
+	stg_eu_rdsPort           *int
+	stg_eu_rdsUsername       *string
 	stg_eu_redshiftClusterId *string
-	stg_eu_redshiftUsername *string
+	stg_eu_redshiftUsername  *string
 
-	stg_cn_profile *string
-	stg_cn_rdsHostname *string
-	stg_cn_rdsPort *int
-	stg_cn_rdsUsername *string
+	stg_cn_profile           *string
+	stg_cn_rdsHostname       *string
+	stg_cn_rdsPort           *int
+	stg_cn_rdsUsername       *string
 	stg_cn_redshiftClusterId *string
-	stg_cn_redshiftUsername *string
+	stg_cn_redshiftUsername  *string
 
-	prd_eu_profile *string
-	prd_eu_mfaArn *string
-	prd_eu_rdsHostname *string
-	prd_eu_rdsPort *int
-	prd_eu_rdsUsername *string
+	prd_eu_profile           *string
+	prd_eu_mfaArn            *string
+	prd_eu_rdsHostname       *string
+	prd_eu_rdsPort           *int
+	prd_eu_rdsUsername       *string
 	prd_eu_redshiftClusterId *string
-	prd_eu_redshiftUsername *string
+	prd_eu_redshiftUsername  *string
 
-	prd_cn_profile *string
-	prd_cn_mfaArn *string
-	prd_cn_rdsHostname *string
-	prd_cn_rdsPort *int
-	prd_cn_rdsUsername *string
+	prd_cn_profile           *string
+	prd_cn_mfaArn            *string
+	prd_cn_rdsHostname       *string
+	prd_cn_rdsPort           *int
+	prd_cn_rdsUsername       *string
 	prd_cn_redshiftClusterId *string
-	prd_cn_redshiftUsername *string
+	prd_cn_redshiftUsername  *string
 )
 
 func main() {
@@ -119,7 +119,7 @@ func main() {
 	stg_cn_redshiftUsername = conf.String("stg-cn", "REDSHIFT_USERNAME", "")
 
 	prd_eu_profile = conf.String("prd-eu", "PROFILE", "default")
-	prd_eu_mfaArn= conf.String("prd-eu", "MFA_ARN", "")
+	prd_eu_mfaArn = conf.String("prd-eu", "MFA_ARN", "")
 	prd_eu_rdsHostname = conf.String("prd-eu", "RDS_HOSTNAME", "")
 	prd_eu_rdsPort = conf.Int("prd-eu", "RDS_PORT", 5306)
 	prd_eu_rdsUsername = conf.String("prd-eu", "RDS_USERNAME", "")
@@ -127,7 +127,7 @@ func main() {
 	prd_eu_redshiftUsername = conf.String("prd-eu", "REDSHIFT_USERNAME", "")
 
 	prd_cn_profile = conf.String("prd-cn", "PROFILE", "default")
-	prd_cn_mfaArn= conf.String("prd-cn", "MFA_ARN", "")
+	prd_cn_mfaArn = conf.String("prd-cn", "MFA_ARN", "")
 	prd_cn_rdsHostname = conf.String("prd-cn", "RDS_HOSTNAME", "")
 	prd_cn_rdsPort = conf.Int("prd-cn", "RDS_PORT", 5306)
 	prd_cn_rdsUsername = conf.String("prd-cn", "RDS_USERNAME", "")
@@ -145,7 +145,7 @@ func main() {
 
 	w.SetMainMenu(fyne.NewMainMenu(fyne.NewMenu("Help",
 		fyne.NewMenuItem("About", func() {
-			dialog.ShowInformation("Information", "Email : chiseok.song@bespinglobal.com", w)
+			dialog.ShowInformation("Information", "Email : misoboy.kor@gmail.com", w)
 		}),
 	)))
 	w.SetMaster()
@@ -243,7 +243,7 @@ func makePrdTab(w fyne.Window) fyne.Widget {
 	)
 }
 
-func makeOtpWindowForm(callback func(OtpNum string)){
+func makeOtpWindowForm(callback func(OtpNum string)) {
 	w := fyne.CurrentApp().NewWindow("Type to OptCode")
 	otpCodeEntry := customEntry.NewEnterEntry()
 	otpCodeEntry.SetKeyName(fyne.KeyReturn)
@@ -264,7 +264,7 @@ func makeOtpWindowForm(callback func(OtpNum string)){
 		},
 	}
 
-	otpCodeEntry.SetCallback(func(value string){
+	otpCodeEntry.SetCallback(func(value string) {
 		form.OnSubmit()
 	})
 
@@ -277,12 +277,12 @@ func makeOtpWindowForm(callback func(OtpNum string)){
 
 }
 
-func makeLog(){
+func makeLog() {
 	os.MkdirAll(logPath, os.ModePerm)
 	if !FileExists(logPath + "/" + logFileName) {
 		CreateFile(logPath + "/" + logFileName)
 	}
-	fpLog, err := os.OpenFile(logPath + "/" + logFileName, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	fpLog, err := os.OpenFile(logPath+"/"+logFileName, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
 	if err != nil {
 		panic(err)
 	}
