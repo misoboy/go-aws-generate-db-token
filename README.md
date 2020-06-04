@@ -20,8 +20,17 @@ AWS IAM DB Token creation also has an AWS CLI, but it provides a GUI to help you
 
 In the PRD environment, it is assumed that MFA is activated and the OTP CODE is input.
 
-We need to modify conf / env.conf before using it.
+## Usage
 
+Run windows cmd
+Go to the project workspace root path.
+```
+> set GOROOT=Go Lang installation path
+> set GOPATH=Project Workspace Path
+> go build ./main.go -o aws-generate-db-token.exe
+```
+
+Before running the exe file, you need to modify the `conf/env.conf` file.
 ```conf
 [_GLOBAL_SECTION_]
 
@@ -32,6 +41,7 @@ RDS_PORT=AWS RDS Service Port
 RDS_USERNAME=AWS RDS Username
 REDSHIFT_CLUSTER_ID=AWS Redshift Cluster ID
 REDSHIFT_USERNAME=AWS Redshift Username
+...
 ```
 
-Enjoy!
+Generate the token by running the exe file.
