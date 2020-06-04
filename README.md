@@ -27,7 +27,7 @@ Go to the project workspace root path.
 ```
 > set GOROOT=Go Lang installation path
 > set GOPATH=Project Workspace Path
-> go build ./main.go -o aws-generate-db-token.exe
+> go build -o aws-generate-db-token.exe ./main.go
 ```
 
 Before running the exe file, you need to modify the `conf/env.conf` file.
