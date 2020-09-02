@@ -6,7 +6,7 @@ import (
 	"fyne.io/fyne/dialog"
 	"fyne.io/fyne/layout"
 	"fyne.io/fyne/widget"
-	commonModel "generateIamDbToken/kr/misoboy/common/model"
+	commonModel "github.com/misoboy/go-aws-generate-db-token/common/model"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/credentials"
 	"github.com/aws/aws-sdk-go/aws/session"
