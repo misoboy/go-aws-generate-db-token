@@ -6,12 +6,12 @@ import (
 	"fyne.io/fyne/dialog"
 	"fyne.io/fyne/layout"
 	"fyne.io/fyne/widget"
-	commonModel "github.com/misoboy/go-aws-generate-db-token/common/model"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/credentials"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/rds/rdsutils"
 	"github.com/aws/aws-sdk-go/service/sts"
+	commonModel "github.com/misoboy/go-aws-generate-db-token/common/model"
 	"log"
 	"strconv"
 	"strings"
@@ -27,7 +27,7 @@ func (service *RdsService) GenerateRdsToken() {
 
 	var hostname = service.Hostname + ":" + strconv.Itoa(service.Port) + "/"
 	sess, err := session.NewSessionWithOptions(session.Options{
-		Profile: service.Profile,
+		Profile:           service.Profile,
 		SharedConfigState: session.SharedConfigEnable,
 	})
 	if err != nil {
@@ -52,7 +52,7 @@ func (service *RdsService) GenerateRdsToken() {
 
 		staticProvider := credentials.NewStaticCredentials(*resp.Credentials.AccessKeyId, *resp.Credentials.SecretAccessKey, *resp.Credentials.SessionToken)
 		sess, err = session.NewSessionWithOptions(session.Options{
-			Config: aws.Config{Credentials: staticProvider, Region: sess.Config.Region},
+			Config:            aws.Config{Credentials: staticProvider, Region: sess.Config.Region},
 			SharedConfigState: session.SharedConfigEnable,
 		})
 		if err != nil {
@@ -83,7 +83,7 @@ func (service *RdsService) GenerateRdsToken() {
 				subWin.SetContent(widget.NewVBox(
 					widget.NewLabel(service.Username),
 					widget.NewButton("Close", func() {
-						subWin.Close()
+						subWin.Hide()
 					}),
 				))
 				subWin.CenterOnScreen()
@@ -97,7 +97,7 @@ func (service *RdsService) GenerateRdsToken() {
 				subWin.SetContent(widget.NewVBox(
 					widget.NewLabel(token),
 					widget.NewButton("Close", func() {
-						subWin.Close()
+						subWin.Hide()
 					}),
 				))
 				subWin.CenterOnScreen()

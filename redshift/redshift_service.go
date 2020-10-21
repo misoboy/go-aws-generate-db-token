@@ -7,12 +7,12 @@ import (
 	"fyne.io/fyne/dialog"
 	"fyne.io/fyne/layout"
 	"fyne.io/fyne/widget"
-	commonModel "github.com/misoboy/go-aws-generate-db-token/common/model"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/credentials"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/redshift"
 	"github.com/aws/aws-sdk-go/service/sts"
+	commonModel "github.com/misoboy/go-aws-generate-db-token/common/model"
 	"log"
 	"strings"
 )
@@ -26,7 +26,7 @@ type RedshiftService struct {
 func (service *RedshiftService) GenerateRedshiftToken() {
 
 	sess, err := session.NewSessionWithOptions(session.Options{
-		Profile: service.Profile,
+		Profile:           service.Profile,
 		SharedConfigState: session.SharedConfigEnable,
 	})
 	if err != nil {
@@ -49,7 +49,7 @@ func (service *RedshiftService) GenerateRedshiftToken() {
 
 		staticProvider := credentials.NewStaticCredentials(*resp.Credentials.AccessKeyId, *resp.Credentials.SecretAccessKey, *resp.Credentials.SessionToken)
 		sess, err = session.NewSessionWithOptions(session.Options{
-			Config: aws.Config{Credentials: staticProvider, Region: sess.Config.Region},
+			Config:            aws.Config{Credentials: staticProvider, Region: sess.Config.Region},
 			SharedConfigState: session.SharedConfigEnable,
 		})
 		if err != nil {
@@ -82,7 +82,7 @@ func (service *RedshiftService) GenerateRedshiftToken() {
 				subWin.SetContent(widget.NewVBox(
 					widget.NewLabel(*resp.DbUser),
 					widget.NewButton("Close", func() {
-						subWin.Close()
+						subWin.Hide()
 					}),
 				))
 				subWin.CenterOnScreen()
@@ -96,7 +96,7 @@ func (service *RedshiftService) GenerateRedshiftToken() {
 				subWin.SetContent(widget.NewVBox(
 					widget.NewLabel(*resp.DbPassword),
 					widget.NewButton("Close", func() {
-						subWin.Close()
+						subWin.Hide()
 					}),
 				))
 				subWin.CenterOnScreen()

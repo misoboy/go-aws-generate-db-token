@@ -7,12 +7,12 @@ import (
 	"fyne.io/fyne/app"
 	"fyne.io/fyne/dialog"
 	"fyne.io/fyne/widget"
+	iniUtil "github.com/c4pt0r/ini"
 	customEntry "github.com/misoboy/go-aws-generate-db-token/common/entry"
 	"github.com/misoboy/go-aws-generate-db-token/common/model"
 	customTheme "github.com/misoboy/go-aws-generate-db-token/common/theme"
 	rdsService "github.com/misoboy/go-aws-generate-db-token/rds"
 	redshiftService "github.com/misoboy/go-aws-generate-db-token/redshift"
-	iniUtil "github.com/c4pt0r/ini"
 	"io"
 	"log"
 	"os"
@@ -251,14 +251,14 @@ func makeOtpWindowForm(callback func(OtpNum string)) {
 
 	form := &widget.Form{
 		OnCancel: func() {
-			w.Close()
+			w.Hide()
 		},
 		OnSubmit: func() {
 			if otpCodeEntry.Text == "" {
 				err := errors.New("Required OtpCode")
 				dialog.ShowError(err, w)
 			} else {
-				w.Close()
+				w.Hide()
 				callback(otpCodeEntry.Text)
 			}
 		},
