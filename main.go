@@ -66,6 +66,14 @@ var (
 	prd_cn_rdsUsername       *string
 	prd_cn_redshiftClusterId *string
 	prd_cn_redshiftUsername  *string
+	
+	prd_eu_profile2           *string
+	prd_eu_mfaArn2            *string
+	prd_eu_rdsHostname2       *string
+	prd_eu_rdsPort2           *int
+	prd_eu_rdsUsername2       *string
+	prd_eu_redshiftClusterId2 *string
+	prd_eu_redshiftUsername2  *string
 )
 
 func main() {
@@ -133,6 +141,15 @@ func main() {
 	prd_cn_rdsUsername = conf.String("prd-cn", "RDS_USERNAME", "")
 	prd_cn_redshiftClusterId = conf.String("prd-cn", "REDSHIFT_CLUSTER_ID", "")
 	prd_cn_redshiftUsername = conf.String("prd-cn", "REDSHIFT_USERNAME", "")
+
+	prd_eu_profile2 = conf.String("prd-eu-data", "PROFILE", "default")
+	prd_eu_mfaArn2 = conf.String("prd-eu-data", "MFA_ARN", "")
+	prd_eu_rdsHostname2 = conf.String("prd-eu-data", "RDS_HOSTNAME", "")
+	prd_eu_rdsPort2 = conf.Int("prd-eu-data", "RDS_PORT", 5306)
+	prd_eu_rdsUsername2 = conf.String("prd-eu-data", "RDS_USERNAME", "")
+	prd_eu_redshiftClusterId2 = conf.String("prd-eu-data", "REDSHIFT_CLUSTER_ID", "")
+	prd_eu_redshiftUsername2 = conf.String("prd-eu-data", "REDSHIFT_USERNAME", "")
+	
 	conf.Parse()
 
 	app := app.New()
@@ -222,6 +239,13 @@ func makePrdTab(w fyne.Window) fyne.Widget {
 		widget.NewButton("prd-eu-redshift", func() {
 			makeOtpWindowForm(func(otpNum string) {
 				var awsModel = model.AwsModel{Profile: *prd_eu_profile, MfaArn: *prd_eu_mfaArn, OtpNum: otpNum, Username: *prd_eu_redshiftUsername, ClusterId: *prd_eu_redshiftClusterId}
+				var service = redshiftService.RedshiftService{AwsModel: awsModel, Window: w, Logger: myLogger}
+				service.GenerateRedshiftToken()
+			})
+		}),
+		widget.NewButton("prd-eu-data-redshift", func() {
+			makeOtpWindowForm(func(otpNum string) {
+				var awsModel = model.AwsModel{Profile: *prd_eu_profile2, MfaArn: *prd_eu_mfaArn2, OtpNum: otpNum, Username: *prd_eu_redshiftUsername2, ClusterId: *prd_eu_redshiftClusterId2}
 				var service = redshiftService.RedshiftService{AwsModel: awsModel, Window: w, Logger: myLogger}
 				service.GenerateRedshiftToken()
 			})
