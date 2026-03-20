@@ -1,47 +1,60 @@
-# misoboy/go-aws-generate-db-token
+# go-aws-generate-db-token
 
-AWS Generate IAM DB Token in Go GUI.
+> A Go GUI desktop tool for generating **AWS IAM database authentication tokens** for RDS and Redshift — with MFA/OTP support.
 
-## Installation
-
-```
-go get -u github.com/misoboy/go-aws-generate-db-token
-```
-
-## Examples
-
-| [Screenshot](examples) |
-| --- |
-| <img src="examples/screenshot.png" width="400">|
+[![Go](https://img.shields.io/badge/Go-1.x-00ADD8?logo=go&logoColor=white)](https://golang.org)
+[![AWS](https://img.shields.io/badge/AWS-RDS%20%7C%20Redshift-FF9900?logo=amazonaws&logoColor=white)](https://aws.amazon.com)
+[![GUI](https://img.shields.io/badge/UI-Desktop_GUI-4A90E2)](https://github.com/misoboy/go-aws-generate-db-token)
+[![Windows](https://img.shields.io/badge/Windows-exe-0078D6?logo=windows&logoColor=white)](https://github.com/misoboy/go-aws-generate-db-token)
 
 ## Overview
 
-AWS IAM DB Token creation also has an AWS CLI, but it provides a GUI to help you create it easily.
+AWS CLI can generate IAM DB tokens but it requires command-line usage which is cumbersome for production access. This tool provides a **native GUI** to:
 
-In the PRD environment, it is assumed that MFA is activated and the OTP CODE is input.
+- Input AWS credentials and region
+- Enter MFA OTP code (for MFA-enabled environments)
+- Generate an IAM DB authentication token for RDS or Redshift
+- Copy the token for use in database clients
 
-## Usage
+| Screenshot |
+|-----------|
+| <img src="examples/screenshot.png" width="400"> |
 
-Run windows cmd
-Go to the project workspace root path.
-```
-> set GOROOT=Go Lang installation path
-> set GOPATH=Project Workspace Path
-> go build -o aws-generate-db-token.exe github.com/misoboy/go-aws-generate-db-token
-```
+## Prerequisites
 
-Before running the exe file, you need to modify the `conf/env.conf` file.
-```conf
-[_GLOBAL_SECTION_]
+- Go 1.16+
+- Windows (primary target) or cross-platform build
 
-[dev-eu]
-PROFILE=AWS CLI Profile Name
-RDS_HOSTNAME=AWS RDS Service Endpoint
-RDS_PORT=AWS RDS Service Port
-RDS_USERNAME=AWS RDS Username
-REDSHIFT_CLUSTER_ID=AWS Redshift Cluster ID
-REDSHIFT_USERNAME=AWS Redshift Username
-...
+## Installation
+
+```bash
+go get -u github.com/misoboy/go-aws-generate-db-token
 ```
 
-Generate the token by running the exe file.
+## Build
+
+```bash
+# Windows
+set GOROOT=<Go installation path>
+set GOPATH=<Project workspace path>
+go build -o aws-generate-db-token.exe github.com/misoboy/go-aws-generate-db-token
+
+# Linux/macOS
+go build -o aws-generate-db-token github.com/misoboy/go-aws-generate-db-token
+```
+
+## Project Structure
+
+```
+.
+├── main.go       # Entry point and GUI setup
+├── rds/          # RDS token generation
+├── redshift/     # Redshift token generation
+├── common/       # Shared AWS utilities
+├── conf/         # Configuration
+└── examples/     # Screenshots and usage examples
+```
+
+## License
+
+MIT
